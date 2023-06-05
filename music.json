@@ -1,0 +1,101 @@
+[
+  {
+    "Id": "5sing",
+    "Name": "5SING音乐",
+    "Url": "http://5sing.kugou.com/",
+    "Description": "5SING音乐",
+    "SearchUrl": "http://search.5sing.kugou.com/?keyword=",
+    "SongUrl": "http://service.5sing.kugou.com/song/getsongurl",
+    "LyricUrl": "http://mobileapi.5sing.kugou.com/song/newget"
+  },
+  {
+    "Id": "joox",
+    "Name": "JOOX音乐",
+    "Url": "https://www.joox.com/cn/login",
+    "Description": "",
+    "SearchUrl": "https://api-jooxtt.sanook.com/web-fcgi-bin/web_search",
+    "SongUrl": "https://api.joox.com/web-fcgi-bin/web_get_songinfo",
+    "LyricUrl": "https://api-jooxtt.sanook.com/web-fcgi-bin/web_lyric"
+  },
+  {
+    "Id": "kugou",
+    "Name": "酷狗音乐",
+    "Url": "http://www.kugou.com/",
+    "Description": "",
+    "SearchUrl": "http://songsearch.kugou.com/song_search_v2",
+    "SongUrl": "https://wwwapi.kugou.com/yy/index.php",
+    "LyricUrl": "http://m.kugou.com/app/i/krc.php"
+  },
+  {
+    "Id": "kuwo",
+    "Name": "酷我音乐",
+    "Url": "http://www.kuwo.cn/",
+    "Description": "",
+    "SearchUrl": "http://www.kuwo.cn/api/www/search/searchMusicBykeyWord",
+    "SongUrl": "http://antiserver.kuwo.cn/anti.s",
+    "LyricUrl": "http://m.kuwo.cn/newh5/singles/songinfoandlrc"
+  },
+  {
+    "Id": "lizhi",
+    "Name": "荔枝FM",
+    "Url": "http://m.lizhi.fm",
+    "Description": "",
+    "SearchUrl": "http://m.lizhi.fm/api/search_audio/{}/1",
+    "SongUrl": "https://m.lizhi.fm/vodapi/voice/info/{}",
+    "LyricUrl": ""
+  },
+  {
+    "Id": "migu",
+    "Name": "咪咕音乐",
+    "Url": "http://www.migu.cn/",
+    "Description": "",
+    "SearchUrl": "http://pd.musicapp.migu.cn/MIGUM3.0/v1.0/content/search_all.do",
+    "SongUrl": "https://app.pd.nf.migu.cn/MIGUM3.0/v1.0/content/sub/listenSong.do?channel=mx&copyrightId={copyrightId}&contentId={contentId}&toneFlag={toneFlag}&resourceType={resourceType}&userId=15548614588710179085069&netType=00",
+    "LyricUrl": ""
+  },
+  {
+    "Id": "163",
+    "Name": "网易云音乐",
+    "Url": "https://music.163.com/",
+    "Description": "",
+    "SearchUrl": "http://music.163.com/weapi/cloudsearch/get/web?csrf_token=",
+    "SongUrl": "http://music.163.com/weapi/song/enhance/player/url?csrf_token=",
+    "LyricUrl": "https://music.163.com/weapi/song/lyric"
+  },
+  {
+    "Id": "91q",
+    "Name": "千千音乐",
+    "Url": "https://music.91q.com/",
+    "Description": "",
+    "SearchUrl": "https://music.91q.com/search?word=",
+    "SongUrl": "",
+    "LyricUrl": ""
+  },
+  {
+    "Id": "qq",
+    "Name": "qq音乐",
+    "Url": "https://y.qq.com/",
+    "Description": "",
+    "SearchUrl": "https://u.y.qq.com/cgi-bin/musicu.fcg?_webcgikey=DoSearchForQQMusicDesktop&_={}",
+    "SongUrl": "",
+    "LyricUrl": "https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg"
+  },
+  {
+    "Id": "ximalaya",
+    "Name": "喜马拉雅",
+    "Url": "https://www.ximalaya.com/",
+    "Description": "",
+    "SearchUrl": "https://www.ximalaya.com/revision/search/main",
+    "SongUrl": "https://www.ximalaya.com/revision/play/v1/audio?id={}&ptype=1",
+    "LyricUrl": ""
+  },
+  {
+    "Id": "1ting",
+    "Name": "一听音乐",
+    "Url": "https://h5.1ting.com/",
+    "Description": "",
+    "SearchUrl": "http://so.1ting.com/song/json",
+    "SongUrl": "http://h5.1ting.com/touch/api/song",
+    "LyricUrl": "http://www.1ting.com/api/geci/lrc/"
+  }
+]
