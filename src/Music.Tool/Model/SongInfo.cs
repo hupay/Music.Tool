@@ -54,4 +54,5 @@ public class SongUrl
     /// mb
     /// </summary>
     public string Size { get; set; }
+    public string Ext { get; set; }
 }

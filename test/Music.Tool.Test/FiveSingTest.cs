@@ -8,17 +8,17 @@ namespace Music.Tool.Test
 {
     public class FiveSingTest : BaseTest
     {
-        private readonly FiveSing _platform;
+        private readonly FiveSing _fivesing;
         public FiveSingTest() : base()
         {
-            _platform = _provider.GetService<FiveSing>();
+            _fivesing = _provider.GetService<FiveSing>();
         }
 
         [Theory]
         [InlineData("阿刁")]
         public async Task SearchAsync(string keyword)
         {
-            var result = await _platform.SearchAsync(keyword);
+            var result = await _fivesing.SearchAsync(keyword);
             Assert.NotNull(result);
             Assert.True(result.Songs.Any());
             Assert.Equal(keyword, result.Songs.First().Name);
@@ -66,10 +66,26 @@ namespace Music.Tool.Test
         [Fact]
         public async Task GetSongAsync()
         {
-            var result = await _platform.GetSongAsync(new { songid = "16500407", songtype = "fc" });
+            var result = await _fivesing.GetSongAsync(new { songid = "16500407", songtype = "fc" });
             Assert.NotNull(result);
             Assert.Equal("阿刁", result.Name);
             Assert.Equal(3, result.Urls.Count());
+        }
+
+        [Fact]
+        public async Task DownloadAsync()
+        {
+            var song = await _fivesing.GetSongAsync(new { songid = "16500407", songtype = "fc" });
+            var url = song.Urls.First();
+            var data = await _fivesing.DownloadAsync(url.Url);
+            var file = song.Name + "." + url.Ext;
+            File.WriteAllBytes(file, data);
+            if (File.Exists(file))
+            {
+                Assert.True(true);
+                File.Delete(file);
+            }
+            else Assert.True(false);
         }
     }
 }

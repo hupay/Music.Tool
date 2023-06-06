@@ -47,9 +47,15 @@ public abstract class MusicPlatform
     /// </summary>
     public virtual string SongUrl => Platform.SongUrl;
 
-    public virtual Task<byte[]> DownloadAsync(string id)
+    /// <summary>
+    /// 文件下载
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
+    public virtual async Task<byte[]> DownloadAsync(string url)
     {
-        throw new NotImplementedException();
+        var bs = await url.GetBytesAsync();
+        return bs;
     }
     /// <summary>
     /// 获取歌曲信息
@@ -93,12 +99,12 @@ public abstract class MusicPlatform
     /// <param name="page">页码</param>
     /// <param name="pageSize">页大小</param>
     /// <returns></returns>
-    public virtual async Task<SearchResult> SearchAsync(string keyword, int page = 1, int pageSize = 20)
+    public virtual async Task<SearchResult> SearchAsync(string keyword)
     {
         try
         {
             _logger.LogInformation($"平台：{Platform.Name}   开始检索。");
-            var text = await GetSearchUrl(keyword).GetStringAsync();
+            var text = await GetSearchRequest(keyword).GetStringAsync();
             var result = ParseSearchResult(text);
             _logger.LogInformation($"平台：{Platform.Name}   结束检索。");
             return result;
@@ -109,9 +115,9 @@ public abstract class MusicPlatform
             return default;
         }
     }
-    public virtual string GetSearchUrl(string keyword)
+    public virtual IFlurlRequest GetSearchRequest(string keyword)
     {
-        return Platform.SearchUrl + keyword;
+        return new FlurlRequest(Platform.SearchUrl + keyword);
     }
 
     /// <summary>

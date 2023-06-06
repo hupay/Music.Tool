@@ -83,18 +83,21 @@ public class FiveSing : MusicPlatform
                     Type= Config.HighQuality,
                     Url=result.data.squrl??result.data.squrl_backup,
                     Size=(int.Parse(result.data.sqsize??"0")*1.0/1024/1024).ToString("F2")+"MB",
+                    Ext=result.data.sqext,
                 },
                 new SongUrl()
                 {
                     Type=Config.StandardQuality,
                     Url=result.data.hqurl??result.data.hqurl_backup,
                     Size=(int.Parse(result.data.hqsize??"0")*1.0/1024/1024).ToString("F2")+"MB",
+                    Ext=result.data.hqext,
                 },
                 new SongUrl()
                 {
                     Type=Config.FluentQuality,
                     Url=result.data.lqurl??result.data.lqurl_backup,
                     Size=(int.Parse(result.data.lqsize??"0")*1.0/1024/1024).ToString("F2")+"MB",
+                    Ext=result.data.lqext,
                 },
             }
         };

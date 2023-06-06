@@ -79,6 +79,11 @@ public class Config
         _logger.LogInformation("加载配置文件成功。");
     }
 
+    /// <summary>
+    /// 检索数量
+    /// </summary>
+    public const int SearchNum = 5;
+
     public List<MusicPlatformInfo> Platforms { get; private set; }
     /// <summary>
     /// 读取指定名称的平台。
