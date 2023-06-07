@@ -21,7 +21,7 @@ public class FiveSing : MusicPlatform
         var match = regex.Match(text);
         if (match.Success)
         {
-            var json = match.Groups[1].Value.Clear();
+            var json = match.Groups[1].Value.FivesingClear();
 
             var result = JsonSerializer.Deserialize<List<FiveSingSearchResult>>(json);
             _logger.LogWarning($"平台：{Platform.Name}   解析搜索结果成功。");

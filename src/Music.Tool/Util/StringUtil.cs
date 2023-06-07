@@ -7,7 +7,7 @@
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string Clear(this string str)
+        public static string FivesingClear(this string str)
         {
             if (string.IsNullOrEmpty(str))
             {
@@ -19,6 +19,17 @@
                 .Replace("\\\"", "\"")
                 .Replace("\\\\u", "\\u")
                 .Replace("""\/""","/");
+        }
+
+        public static string KugouClear(this string str)
+        {
+            if(string.IsNullOrEmpty(str))
+            {
+                return default;
+            }
+            return str
+                .Replace("<en>", string.Empty)
+                .Replace("<\\/en>", string.Empty);
         }
     }
 }

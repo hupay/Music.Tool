@@ -2,6 +2,10 @@ namespace Music.Tool.Model;
 
 public class SongInfo
 {
+    public SongInfo()
+    {
+        ExtraData = new Dictionary<string, string>();
+    }
     /// <summary>
     /// 歌曲ID
     /// </summary>
@@ -42,6 +46,8 @@ public class SongInfo
     public string PlayUrl { get; set; }
 
     public string DownloadUrl { get; set; }
+
+    public Dictionary<string, string> ExtraData { get; set; }
 
     public IEnumerable<SongUrl> Urls { get; set; }
 }

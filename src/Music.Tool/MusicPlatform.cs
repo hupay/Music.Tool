@@ -67,8 +67,7 @@ public abstract class MusicPlatform
         _logger.LogInformation($"平台：{Platform.Name}   开始获取歌曲信息。");
         try
         {
-            var text = await Platform.SongUrl
-                        .SetQueryParams(param)
+            var text = await GetSongRequest(param)
                         .GetStringAsync();
             var song = ParseSongInfo(text);
             _logger.LogInformation($"平台：{Platform.Name}   结束获取歌曲信息。");
@@ -118,6 +117,11 @@ public abstract class MusicPlatform
     public virtual IFlurlRequest GetSearchRequest(string keyword)
     {
         return new FlurlRequest(Platform.SearchUrl + keyword);
+    }
+    public virtual IFlurlRequest GetSongRequest(object param)
+    {
+        return new FlurlRequest(Platform.SongUrl)
+            .SetQueryParams(param);
     }
 
     /// <summary>
