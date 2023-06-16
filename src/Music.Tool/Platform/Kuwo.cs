@@ -1,4 +1,5 @@
-﻿using Flurl;
+﻿using System.Text.Json;
+using Flurl;
 using Flurl.Http;
 using Microsoft.Extensions.Logging;
 using Music.Tool.Model;
@@ -24,7 +25,12 @@ namespace Music.Tool.Platform
 
         public override SearchResult ParseSearchResult(string text)
         {
-            throw new NotImplementedException();
+            var result = JsonSerializer.Deserialize<KuwoSearchResult>(text);
+            if (result?.data?.list?.Any() ?? false)
+            {
+                return Convert(result.data.list);
+            }
+            return default;
         }
 
         public override SongInfo ParseSongInfo(string text)
@@ -48,11 +54,18 @@ namespace Music.Tool.Platform
 
         public override IFlurlRequest GetSongRequest(object param)
         {
+            var check = GetCookie();
             return new FlurlRequest(Platform.SongUrl)
                 .SetQueryParams(param)
-                .WithHeaders(_Header);
+                .WithHeaders(_Header)
+                .WithHeader("csrf", check.Item2.Value)
+                .WithCookies(check.Item1);
         }
 
+        /// <summary>
+        /// 获取Cookie
+        /// </summary>
+        /// <returns></returns>
         private (IReadOnlyList<FlurlCookie>, FlurlCookie) GetCookie()
         {
             var response = "http://kuwo.cn/search/list?key=hello"
@@ -63,6 +76,49 @@ namespace Music.Tool.Platform
             var cookie = response.Cookies;
             var token = cookie.FirstOrDefault(x => x.Name == "kw_token");
             return (cookie, token);
+        }
+
+        /// <summary>
+        /// 实体转换
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        private SearchResult Convert(KuwoSearchList[] list)
+        {
+            var searchResult = new SearchResult()
+            {
+                Songs = list.Select(x => new SongInfo()
+                {
+                    Id = x.rid.ToString(),
+                    Name = x.name,
+                    Artist = x.artist,
+                    Album = x.album,
+                    Duration = TimeSpan.Parse(x.songTimeMinutes),
+                    //PlayUrl = item.songurl,
+                    //DownloadUrl = item.pl,
+                    Platform = Platform.Name,
+                    ExtraData = new Dictionary<string, string>
+                    {
+                        // {"hash",x.FileHash },
+                        // {"album_id",x.AlbumID }
+                    }
+                })
+            };
+            _logger.LogDebug("平台：{Platform.Name}   结果转换成功！", Platform.Name);
+            Parallel.ForEach(searchResult.Songs, async x =>
+            {
+                var para = new
+                {
+                    format = "mp3",
+                    br = "320kmp3",
+                    rid = x.Id,
+                    type = "convert_url",
+                    response = "url",
+                };
+                var songInfo = await GetSongAsync(para);
+                x.Urls = songInfo.Urls;
+            });
+            return searchResult;
         }
     }
 }

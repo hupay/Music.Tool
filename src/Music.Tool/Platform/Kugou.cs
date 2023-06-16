@@ -17,27 +17,27 @@ namespace Music.Tool.Platform
 
         public override SearchResult ParseSearchResult(string text)
         {
-            _logger.LogInformation($"平台：{Platform.Name}   解析搜索结果。");
+            _logger.LogInformation("平台：{Platform.Name}   解析搜索结果。", Platform.Name);
             var result = JsonSerializer.Deserialize<KugouSearchResult>(text.KugouClear());
             if (result?.data?.lists?.Any() ?? false)
             {
-                _logger.LogWarning($"平台：{Platform.Name}   解析搜索结果成功。");
+                _logger.LogWarning("平台：{Platform.Name}   解析搜索结果成功。", Platform.Name);
                 return Convert(result.data.lists);
             }
-            _logger.LogWarning($"平台：{Platform.Name}   解析搜索结果失败。");
+            _logger.LogWarning("平台：{Platform.Name}   解析搜索结果失败。", Platform.Name);
             return default;
         }
 
         public override SongInfo ParseSongInfo(string text)
         {
-            _logger.LogInformation($"平台：{Platform.Name}   解析歌曲信息结果。");
+            _logger.LogInformation("平台：{Platform.Name}   解析歌曲信息结果。", Platform.Name);
             var result = JsonSerializer.Deserialize<KugouSongResult>(text);
             if (result != null && result.status == 1 && result.err_code == 0)
             {
-                _logger.LogWarning($"平台：{Platform.Name}   解析歌曲信息结果成功。");
+                _logger.LogWarning("平台：{Platform.Name}   解析歌曲信息结果成功。", Platform.Name);
                 return Convert(result);
             }
-            _logger.LogWarning($"平台：{Platform.Name}   解析歌曲信息结果失败。");
+            _logger.LogWarning("平台：{Platform.Name}   解析歌曲信息结果失败。", Platform.Name);
             return default;
         }
 
@@ -96,7 +96,7 @@ namespace Music.Tool.Platform
                     }
                 })
             };
-            _logger.LogDebug($"平台：{Platform.Name}   结果转换成功！");
+            _logger.LogDebug("平台：{Platform.Name}   结果转换成功！", Platform.Name);
             Parallel.ForEach(searchResult.Songs, async x =>
             {
                 var param = new

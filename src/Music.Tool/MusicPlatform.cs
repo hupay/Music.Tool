@@ -16,10 +16,10 @@ public abstract class MusicPlatform
     public MusicPlatform(ILogger<MusicPlatform> logger, Config config)
     {
         _logger = logger;
-        Platform = config[Id];
+        Platform = config?[Id];
         if (Platform == null)
             throw new Exception($"平台[{Id}]不存在。");
-        _logger.LogInformation($"加载平台[{Id}]成功。");
+        _logger.LogInformation("加载平台[{Id}]成功。", Id);
     }
 
     /// <summary>
@@ -62,20 +62,20 @@ public abstract class MusicPlatform
     /// </summary>
     /// <param name="id">歌曲ID</param>
     /// <returns></returns>
-    public virtual async Task<SongInfo> GetSongAsync(object param)
+    public virtual async Task<SongInfo?> GetSongAsync(object param)
     {
-        _logger.LogInformation($"平台：{Platform.Name}   开始获取歌曲信息。");
+        _logger.LogInformation("平台：{Platform.Name}   开始获取歌曲信息。", Platform.Name);
         try
         {
             var text = await GetSongRequest(param)
                         .GetStringAsync();
             var song = ParseSongInfo(text);
-            _logger.LogInformation($"平台：{Platform.Name}   结束获取歌曲信息。");
+            _logger.LogInformation("平台：{Platform.Name}   结束获取歌曲信息。", Platform.Name);
             return song;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"平台：{Platform.Name}   获取歌曲信息失败。");
+            _logger.LogError(e, "平台：{Platform.Name}   获取歌曲信息失败。", Platform.Name);
             return default;
         }
     }
@@ -98,19 +98,19 @@ public abstract class MusicPlatform
     /// <param name="page">页码</param>
     /// <param name="pageSize">页大小</param>
     /// <returns></returns>
-    public virtual async Task<SearchResult> SearchAsync(string keyword)
+    public virtual async Task<SearchResult?> SearchAsync(string keyword)
     {
         try
         {
-            _logger.LogInformation($"平台：{Platform.Name}   开始检索。");
+            _logger.LogInformation("平台：{Platform.Name}   开始检索。", Platform.Name);
             var text = await GetSearchRequest(keyword).GetStringAsync();
             var result = ParseSearchResult(text);
-            _logger.LogInformation($"平台：{Platform.Name}   结束检索。");
+            _logger.LogInformation("平台：{Platform.Name}   结束检索。", Platform.Name);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"平台：{Platform.Name}   检索失败。");
+            _logger.LogError(e, "平台：{Platform.Name}   检索失败。", Platform.Name);
             return default;
         }
     }

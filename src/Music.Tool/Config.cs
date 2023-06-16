@@ -74,7 +74,7 @@ public class Config
         var str = File.ReadAllText(path);
         Platforms = JsonSerializer.Deserialize<List<MusicPlatformInfo>>(str);
         if (Platforms == null || !Platforms.Any())
-            throw new ArgumentNullException(nameof(Platforms));
+            throw new NullReferenceException(nameof(Platforms));
         _logger = logger;
         _logger.LogInformation("加载配置文件成功。");
     }
@@ -89,7 +89,7 @@ public class Config
     /// 读取指定名称的平台。
     /// </summary>
     /// <value></value>
-    public MusicPlatformInfo this[string id]
+    public MusicPlatformInfo? this[string id]
     {
         get
         {
